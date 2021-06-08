@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/login.css" type="text/css">
+    <title>CIVILDIC</title>
+    <style></style>
+</head>
+<body>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <h2 class="active"> Sign In </h2>
+
+        <a href="/members/new"><h2 class="inactive underlineHover">Sign Up </h2></a>
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="/img/logo.png" id="icon" alt="User Icon"/>
+        </div>
+
+        <!-- Login Form -->
+        <form action="/loginProcess" method="post">
+            <input type="text" id="login" class="fadeIn second" name="email" placeholder="login">
+            <input type="text" id="password" class="fadeIn third" name="pw" placeholder="password">
+            <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="/">Forgot Password?</a>
+        </div>
+
+    </div>
+</div>
+
+<div>
+    <table>
+        <tbody>
+        <td th:object="${message}"></td>
+        <th:block th:if="${message?.length() == 5}">
+            <script>
+                    alert("찾는 계정 정보가 없습니다.");
+            </script>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

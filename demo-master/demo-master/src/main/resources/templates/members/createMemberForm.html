@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <title>CIVILDIC</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+
+	body {
+		color: #fff;
+		background: #63738a;
+		font-family: 'Roboto', sans-serif;
+	}
+    .form-control{
+		height: 40px;
+		box-shadow: none;
+		color: #969fa4;
+	}
+	.form-control:focus{
+		border-color: #5cb85c;
+	}
+    .form-control, .btn{
+        border-radius: 3px;
+    }
+	.signup-form{
+		width: 400px;
+		margin: 0 auto;
+		padding: 30px 0;
+	}
+	.signup-form h2{
+		color: #636363;
+        margin: 0 0 15px;
+		position: relative;
+		text-align: center;
+    }
+	.signup-form h2:before, .signup-form h2:after{
+		content: "";
+		height: 2px;
+		width: 30%;
+		background: #d4d4d4;
+		position: absolute;
+		top: 50%;
+		z-index: 2;
+	}
+	.signup-form h2:before{
+		left: 0;
+	}
+	.signup-form h2:after{
+		right: 0;
+	}
+    .signup-form .hint-text{
+		color: #999;
+		margin-bottom: 30px;
+		text-align: center;
+	}
+    .signup-form form{
+		color: #999;
+		border-radius: 3px;
+    	margin-bottom: 15px;
+        background: #f2f3f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+	.signup-form .form-group{
+		margin-bottom: 20px;
+	}
+
+	.signup-form input[type="checkbox"]{
+		margin-top: 3px;
+	}
+	.signup-form .btn{
+        font-size: 16px;
+        font-weight: bold;
+		min-width: 140px;
+        outline: none !important;
+    }
+	.signup-form .row div:first-child{
+		padding-right: 10px;
+	}
+	.signup-form .row div:last-child{
+		padding-left: 10px;
+	}
+    .signup-form a{
+		color: #fff;
+		text-decoration: underline;
+	}
+    .signup-form a:hover{
+		text-decoration: none;
+	}
+	.signup-form form a{
+		color: #5cb85c;
+		text-decoration: none;
+	}
+	.signup-form form a:hover{
+		text-decoration: underline;
+	}
+	#option-1:checked ~ .option-1,
+    #option-2:checked ~ .option-2{
+      border-color: #0069d9;
+      background: #0069d9;
+    }
+
+    .pretty .option .dot{
+     height: 10px;
+     width: 10px;
+     background : #d9d9d9;
+     border-radius: 50%;
+     position: relative;
+
+     transition: all 0.3s ease;
+    }
+
+    #option-1:checked ~ .option-1 .dot,
+    #option-2:checked ~ .option-2 .dot{
+      background: #fff;
+    }
+
+    .pretty .option .dot::before{
+        position: absolute;
+        content: "";
+        left: 2px;
+        top: 2px;
+        height: 6px;
+        width: 6px;
+        background: #0069d9;
+        border-radius: 50%;
+        opacity: 0;
+        transition: all 0.3s ease;
+        transform: scale(1.5);
+    }
+    #option-1:checked ~ .option-1 .dot::before,
+    #option-2:checked ~ .option-2 .dot::before{
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .pretty{
+        height: 60 px;
+		width: 340px;
+		border-radius: 5px;
+		margin-bottom: 20px;
+		background: #fff;
+		display: flex;
+
+		place-items: center;
+
+
+		padding: 5px 15px;
+		align-items: center;
+		border: 1px solid #d4d4d4;
+		justify-content: space-evenly;
+
+	}
+
+	.pretty .option {
+	    background: #fff;
+	    height: 100%;
+	    width: 100%;
+	    margin 0 10px;
+	    border-radius: 5px;
+	    border: 1px solid lightgrey;
+	    cursor: pointer;
+
+	    display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+
+		padding: 2px 40px;
+
+		transition: all 0.3s ease;
+	}
+
+	.wrapper .option span{
+	    color: #808080;
+	    font-size: 20px;
+	}
+
+	#option-1:checked ~ .option-1 span,
+    #option-2:checked ~ .option-2 span{
+      color: #fff;
+    }
+
+    .pretty input[type="radio"]{
+      display: none;
+    }
+
+
+
+
+    </style>
+</head>
+<body>
+<div class="signup-form">
+    <form action="/members/new" method="post">
+        <h2>Register</h2>
+        <p class="hint-text">Create your account. It's free and only takes a minute.</p>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-6"><input type="text" id="fname" class="form-control" name="fname"
+                                             placeholder="First Name" required="required"></div>
+                <div class="col-xs-6"><input type="text" id="lname" class="form-control" name="lname"
+                                             placeholder="Last Name" required="required"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password"
+                   required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="confirm_password" id="confirm_password"
+                   placeholder="Confirm Password" required="required">
+        </div>
+        <div class="form-group">
+            <input type="date" class="form-control" name="birthday" id="birthday" placeholder="Date" required="required"
+                   min="1921-01-01" max="2010-01-01">
+        </div>
+        <!--        <div class="form-group">-->
+        <!--            <input type="text" class="form-control" name="gender" id="gender" placeholder="Gender" required="required">-->
+        <!--        </div>-->
+
+        <div class="pretty">
+            <input type="radio" name="gender" value="Male" id="option-1">
+            <input type="radio" name="gender" value="Female" id="option-2">
+            <label for="option-1" class="option option-1">
+                <div class="dot"></div>
+                <span>Male</span>
+            </label>
+            <label for="option-2" class="option option-2">
+                <div class="dot"></div>
+                <span>Female</span>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of
+                Use</a> &amp; <a href="#">Privacy Policy</a></label>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+        </div>
+    </form>
+    <div class="text-center">Already have an account? <a href="/members/login">Sign in</a></div>
+</div>
+<div>
+    <table>
+        <tbody>
+        <td th:object="${message}"></td>
+        <th:block th:if="${message?.length() == 5}">
+            <script>
+                    alert("이미 존재하는 회원입니다.");
+            </script>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <table>
+        <tbody>
+        <td th:object="${message2}"></td>
+        <th:block th:if="${message2?.length() == 5}">
+            <script>
+                    alert("비밀번호가 다릅니다.");
+            </script>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
